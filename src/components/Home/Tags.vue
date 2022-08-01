@@ -1,28 +1,39 @@
 <template>
   <div class="header">
     <ul>
-      <li v-for="i in info" :key="i.id">{{ i.content }}</li>
+      <li v-for="item in dataSource" :key="item" @click="toggle(item)"
+      :class="{selected:selectedTags.indexOf(item)>=0}">{{ item }}</li>
     </ul>
-    <button class="newTags" @click="addInfo">新建标签</button>
+    <button class="newTags" @click="create">新建标签</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Tags",
+  props: ['dataSource'],
   data() {
     return {
-      info: [
-        {id: 1, content: '衣'},
-        {id: 2, content: '食'},
-        {id: 3, content: '住'},
-        {id: 4, content: '行'}
-      ]
+      selectedTags: []
     }
   },
   methods: {
-    addInfo() {
-      this.info.push({id: 5, content: 'haha'})
+    create(){
+      const  name = window.prompt('请输入标签名')
+      if(name ===''){
+        window.alert('标签名不能为空')
+      }else {
+        this.$emit('update:dataSource',[...this.dataSource,name])
+      }
+    },
+    toggle(item){
+      const items = this.selectedTags.indexOf(item)
+      if(items>=0){
+        this.selectedTags.splice(items,1)
+      }else {
+        this.selectedTags.push(item)
+      }
+
     }
   }
 }
@@ -35,12 +46,16 @@ export default {
     flex-wrap: wrap;
 
     > li {
-      background: rgb(70, 188, 160);
+      $bg:rgb(70, 188, 160);
+      background: $bg;
       border-radius: 12px;
       padding: 2px 16px;
       margin-right: 10px;
       color: white;
       margin-bottom: 6px;
+      &.selected {
+        background: darken($bg,30%);
+      }
     }
   }
 

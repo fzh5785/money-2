@@ -4,7 +4,7 @@
       <NumberPad/>
       <Buttons/>
       <Notes/>
-      <Tags/>
+      <Tags :data-source.sync="tags"/>
     </Layout>
   </div>
 </template>
@@ -20,7 +20,9 @@ export default {
   name: "Home",
   components: {Tags, Buttons, Notes, NumberPad},
   data() {
-    return {}
+    return {
+      tags: ['衣','食','住','行']
+    }
   },
   methods: {}
 }

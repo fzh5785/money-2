@@ -2,7 +2,7 @@
   <div class="notes">
     <label>
       <span>备注</span>
-      <input type="text" placeholder="在这里输入备注">
+      <input type="text" placeholder="在这里输入备注" v-model="value">
     </label>
   </div>
 </template>
@@ -11,7 +11,9 @@
 export default {
   name: "Notes",
   data() {
-    return {}
+    return {
+      value : ''
+    }
   },
   methods: {}
 }
